@@ -130,7 +130,6 @@ if (
             st.markdown(f"**No fuzzy matches for '{keyword}' above threshold {threshold}.**")
     selected_fuzzy = {}
     if fuzzy_matches:
-        st.info("Review and select fuzzy matches (misspellings/variants) to include in your search. Your original keywords are always included.")
         for keyword, matches in fuzzy_matches.items():
             selected = st.multiselect(
                 f"Fuzzy matches for '{keyword}':",
@@ -140,7 +139,7 @@ if (
             )
             selected_fuzzy[keyword] = selected
     else:
-        st.info("No fuzzy matches found for your keywords in the selected column.")
+        pass
     if st.button("Save Fuzzy Matches"):
         all_keywords = list(keywords)
         for matchlist in selected_fuzzy.values():
@@ -150,10 +149,6 @@ if (
         st.session_state['accepted_fuzzy_terms'] = all_keywords
         accepted_display = [f'**{kw}**' if kw in keywords else kw for kw in all_keywords]
         st.success(f"Saved {len(all_keywords)} keywords for next step: {', '.join(accepted_display)}")
-    if 'accepted_fuzzy_terms' in st.session_state:
-        accepted = st.session_state['accepted_fuzzy_terms']
-        accepted_display = [f'**{kw}**' if kw in keywords else kw for kw in accepted]
-        st.info(f"Accepted keywords: {', '.join(accepted_display)}")
 
 # =========================
 # 5. Column Selector for Output
