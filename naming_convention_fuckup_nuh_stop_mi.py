@@ -50,9 +50,12 @@ if st.button("Save Keywords"):
         st.session_state['search_terms'] = unique_terms
         st.session_state['search_terms_raw'] = search_terms_input
         st.session_state['receipt_keywords'] = f"Saved {len(unique_terms)} keyword(s): {', '.join([f'**{kw}**' for kw in unique_terms])}"
+        st.session_state['show_receipt_keywords'] = True
         st.success(st.session_state['receipt_keywords'])
-if 'receipt_keywords' in st.session_state:
+if 'receipt_keywords' in st.session_state and not st.session_state.get('show_receipt_keywords', False):
     st.success(st.session_state['receipt_keywords'])
+if 'show_receipt_keywords' in st.session_state:
+    st.session_state['show_receipt_keywords'] = False
 
 # =========================
 # 3. Column Selector for Search
@@ -152,9 +155,12 @@ if (
         st.session_state['accepted_fuzzy_terms'] = all_keywords
         accepted_display = [f'**{kw}**' if kw in keywords else kw for kw in all_keywords]
         st.session_state['receipt_fuzzy'] = f"Saved {len(all_keywords)} keywords for next step: {', '.join(accepted_display)}"
+        st.session_state['show_receipt_fuzzy'] = True
         st.success(st.session_state['receipt_fuzzy'])
-if 'receipt_fuzzy' in st.session_state:
+if 'receipt_fuzzy' in st.session_state and not st.session_state.get('show_receipt_fuzzy', False):
     st.success(st.session_state['receipt_fuzzy'])
+if 'show_receipt_fuzzy' in st.session_state:
+    st.session_state['show_receipt_fuzzy'] = False
 
 # =========================
 # 5. Column Selector for Output
@@ -193,9 +199,12 @@ if 'df' in st.session_state and 'accepted_fuzzy_terms' in st.session_state:
                 df[output_col] = ""
                 st.session_state['df'] = df
             st.session_state['receipt_output_col'] = f"Output column set to '**{output_col}**'."
+            st.session_state['show_receipt_output_col'] = True
             st.success(st.session_state['receipt_output_col'])
-if 'receipt_output_col' in st.session_state:
+if 'receipt_output_col' in st.session_state and not st.session_state.get('show_receipt_output_col', False):
     st.success(st.session_state['receipt_output_col'])
+if 'show_receipt_output_col' in st.session_state:
+    st.session_state['show_receipt_output_col'] = False
 
 # =========================
 # 6. Python-based Search & Populate
