@@ -194,7 +194,6 @@ if 'df' in st.session_state and 'accepted_fuzzy_terms' in st.session_state:
                 st.session_state['df'] = df
             st.session_state['receipt_output_col'] = f"Output column set to '**{output_col}**'."
             st.success(st.session_state['receipt_output_col'])
-# Show persistent receipt for output column if available
 if 'receipt_output_col' in st.session_state:
     st.success(st.session_state['receipt_output_col'])
 
