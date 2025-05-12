@@ -110,10 +110,9 @@ if (
     tokens = list(tokens)
     fuzzy_matches = {}
 
-    # Dynamic threshold: lower for short keywords, higher for longer
     def get_threshold(word):
         if len(word) <= 2:
-            return 50  # very short, allow even more variants
+            return 50  
         elif len(word) <= 3:
             return 60
         elif len(word) <= 5:
@@ -196,7 +195,7 @@ if 'df' in st.session_state and 'accepted_fuzzy_terms' in st.session_state:
                 st.session_state['df'] = df
             st.success(f"Output column set to '{output_col}'.")
     if 'output_column' in st.session_state:
-        pass  # Removed redundant info message about current output column
+        pass
 
 # =========================
 # 6. Python-based Search & Populate
@@ -266,5 +265,3 @@ try:
         )
 except Exception as e:
     st.error(f"An unexpected error occurred during download: {e}")
-
-
