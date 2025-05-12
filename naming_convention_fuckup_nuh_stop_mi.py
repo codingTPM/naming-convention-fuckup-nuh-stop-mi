@@ -149,7 +149,9 @@ if (
                 if m.lower() not in [t.lower() for t in all_keywords]:
                     all_keywords.append(m)
         st.session_state['accepted_fuzzy_terms'] = all_keywords
-        st.success(f"Saved {len(all_keywords)} keywords for next step.")
+        # Show saved keywords in the green message
+        accepted_display = [f'**{kw}**' if kw in keywords else kw for kw in all_keywords]
+        st.success(f"Saved {len(all_keywords)} keywords for next step: {', '.join(accepted_display)}")
     if 'accepted_fuzzy_terms' in st.session_state:
         accepted = st.session_state['accepted_fuzzy_terms']
         accepted_display = [f'**{kw}**' if kw in keywords else kw for kw in accepted]
