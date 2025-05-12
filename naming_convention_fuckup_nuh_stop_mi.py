@@ -49,7 +49,10 @@ if st.button("Save Keywords"):
     else:
         st.session_state['search_terms'] = unique_terms
         st.session_state['search_terms_raw'] = search_terms_input
-        st.success(f"Saved {len(unique_terms)} keyword(s): {', '.join(unique_terms)}")
+        st.session_state['receipt_keywords'] = f"Saved {len(unique_terms)} keyword(s): {', '.join([f'**{kw}**' for kw in unique_terms])}"
+        st.success(st.session_state['receipt_keywords'])
+if 'receipt_keywords' in st.session_state:
+    st.success(st.session_state['receipt_keywords'])
 
 # =========================
 # 3. Column Selector for Search
@@ -148,7 +151,10 @@ if (
                     all_keywords.append(m)
         st.session_state['accepted_fuzzy_terms'] = all_keywords
         accepted_display = [f'**{kw}**' if kw in keywords else kw for kw in all_keywords]
-        st.success(f"Saved {len(all_keywords)} keywords for next step: {', '.join(accepted_display)}")
+        st.session_state['receipt_fuzzy'] = f"Saved {len(all_keywords)} keywords for next step: {', '.join(accepted_display)}"
+        st.success(st.session_state['receipt_fuzzy'])
+if 'receipt_fuzzy' in st.session_state:
+    st.success(st.session_state['receipt_fuzzy'])
 
 # =========================
 # 5. Column Selector for Output
@@ -186,9 +192,11 @@ if 'df' in st.session_state and 'accepted_fuzzy_terms' in st.session_state:
             if output_col not in df.columns:
                 df[output_col] = ""
                 st.session_state['df'] = df
-            st.success(f"Output column set to '{output_col}'.")
-    if 'output_column' in st.session_state:
-        pass
+            st.session_state['receipt_output_col'] = f"Output column set to '**{output_col}**'."
+            st.success(st.session_state['receipt_output_col'])
+# Show persistent receipt for output column if available
+if 'receipt_output_col' in st.session_state:
+    st.success(st.session_state['receipt_output_col'])
 
 # =========================
 # 6. Python-based Search & Populate
