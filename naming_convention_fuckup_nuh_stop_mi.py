@@ -25,7 +25,7 @@ if uploaded_file is not None:
         st.error(f"Error reading CSV file: {e}")
 else:
     if 'df' not in st.session_state:
-        st.info("Please upload a CSV file to get started.")
+        pass  # Removed redundant blue info message
     st.stop()
 
 # =========================
@@ -49,10 +49,8 @@ if st.button("Save Keywords"):
     else:
         st.session_state['search_terms'] = unique_terms
         st.session_state['search_terms_raw'] = search_terms_input
-        st.success(f"Saved {len(unique_terms)} keyword(s).")
-if 'search_terms' in st.session_state:
-    bold_terms = [f'**{term}**' for term in st.session_state['search_terms']]
-    st.info(f"Current keywords: {', '.join(bold_terms)}")
+        # Show saved keywords in the green message
+        st.success(f"Saved {len(unique_terms)} keyword(s): {', '.join(unique_terms)}")
 
 # =========================
 # 3. Column Selector for Search
